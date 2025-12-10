@@ -421,27 +421,112 @@ Guess the secret number (1-100) with the fewest attempts
 
 ---
 
-## 🚀 Deployment
+## 🚀 Deployment Guide - Vercel + Render
 
-### **Frontend (Vercel)**
-1. Push code to GitHub
-2. Import project on [vercel.com](https://vercel.com)
-3. Set Root Directory: `frontend`
-4. Add environment variables
-5. Deploy
+### 📋 Prerequisites
+- GitHub repository with your code
+- MongoDB Atlas account (free tier available)
+- Vercel account (free)
+- Render account (free)
 
-### **Backend (Railway)**
-1. Install Railway CLI: `npm install -g @railway/cli`
-2. Login: `railway login`
-3. Deploy: `cd backend && railway up`
-4. Add environment variables in dashboard
-5. Copy generated URL for frontend
+### 🗄️ Step 1: Setup MongoDB Atlas
 
-### **Database (MongoDB Atlas)**
-1. Create free cluster at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
-2. Whitelist IP: `0.0.0.0/0`
-3. Get connection string
-4. Add to Railway environment variables
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+2. Create a free cluster
+3. Create a database user
+4. Whitelist IP: `0.0.0.0/0` (allow all IPs)
+5. Get connection string: `mongodb+srv://username:password@cluster.mongodb.net/guessmaster`
+
+### 🔧 Step 2: Deploy Backend on Render
+
+1. Go to [Render Dashboard](https://dashboard.render.com/)
+2. Click "New" → "Web Service"
+3. Connect your GitHub repository
+4. Configure:
+   - **Name**: `guessmaster-backend`
+   - **Root Directory**: `backend`
+   - **Environment**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+
+5. Add Environment Variables:
+   ```
+   PORT=10000
+   MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/guessmaster
+   JWT_SECRET=your-super-secret-jwt-key-minimum-32-characters
+   CLIENT_URL=https://your-frontend-app.vercel.app
+   NODE_ENV=production
+   ```
+
+6. Deploy and copy the backend URL (e.g., `https://guessmaster-backend.onrender.com`)
+
+### 🎨 Step 3: Deploy Frontend on Vercel
+
+1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
+2. Click "New Project"
+3. Import your GitHub repository
+4. Configure:
+   - **Framework Preset**: `Create React App`
+   - **Root Directory**: `frontend`
+
+5. Add Environment Variables:
+   ```
+   REACT_APP_API_URL=https://your-backend-app.onrender.com/api
+   REACT_APP_SERVER_URL=https://your-backend-app.onrender.com
+   REACT_APP_FIREBASE_API_KEY=your-firebase-api-key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+   REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your-project.firebasestorage.app
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+   REACT_APP_FIREBASE_APP_ID=your-app-id
+   REACT_APP_FIREBASE_MEASUREMENT_ID=your-measurement-id
+   ```
+
+6. Deploy and copy the frontend URL
+
+### 🔄 Step 4: Update Backend with Frontend URL
+
+1. Go back to Render dashboard
+2. Update `CLIENT_URL` environment variable with your Vercel URL
+3. Redeploy the backend service
+
+### ✅ Step 5: Test Deployment
+
+1. Visit your Vercel frontend URL
+2. Test user registration/login
+3. Test single player game
+4. Test multiplayer functionality
+
+### 🛠️ Troubleshooting
+
+**Backend Issues:**
+- Check Render logs for errors
+- Verify MongoDB connection string
+- Ensure all environment variables are set
+
+**Frontend Issues:**
+- Check browser console for errors
+- Verify API URLs in environment variables
+- Check Vercel build logs
+
+**CORS Issues:**
+- Ensure `CLIENT_URL` matches your Vercel domain exactly
+- Check if backend is running properly
+
+### 📝 Important Notes
+
+- Render free tier may have cold starts (first request might be slow)
+- Always use HTTPS URLs in production
+- Keep your JWT_SECRET secure and at least 32 characters long
+- MongoDB Atlas free tier has 512MB storage limit
+
+### 🔐 Security Checklist
+
+- [ ] MongoDB user has minimal required permissions
+- [ ] JWT_SECRET is strong and unique
+- [ ] Environment variables are properly set
+- [ ] CORS is configured correctly
+- [ ] No sensitive data in client-side code
 
 **Live Demo:** Coming Soon 🎮
 
