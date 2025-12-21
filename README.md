@@ -12,6 +12,16 @@
   <img src="https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101"/>
   <img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens"/>
 </p>
+
+<div align="center">
+
+### 🌐 **Live Demo**
+
+**Frontend:** [https://guessmasterarena.vercel.app](https://guessmasterarena.vercel.app)  
+**Backend API:** [https://guessmasterarena-dev.onrender.com](https://guessmasterarena-dev.onrender.com)
+
+</div>
+
 <br>
 
 ---
@@ -141,7 +151,6 @@ GuessMasterArena/
 │   │   │   └── 📄 main.css         # 🎨 Main stylesheet
 │   │   ├── 📄 App.jsx              # 🚀 Main app component
 │   │   └── 📄 index.js             # 🎯 Entry point
-│   ├── 📄 .env                     # 🔐 Environment variables
 │   ├── 📄 .env.example             # 🔧 Environment template
 │   ├── 📄 vercel.json              # 🚀 Vercel deployment config
 │   ├── 📄 package.json             # 📦 Frontend dependencies
@@ -167,10 +176,8 @@ GuessMasterArena/
 │   ├── 📂 utils/                  # 🛠️ Utility functions
 │   │   ├── 📄 ai.js               # 🤖 AI opponent logic
 │   │   └── 📄 scoring.js          # 📊 Scoring algorithms
-│   ├── 📄 .env                     # 🔐 Environment variables
 │   ├── 📄 .env.example             # 🔧 Environment template
-│   ├── 📄 Procfile                 # 🚀 Railway/Heroku config
-│   ├── 📄 railway.json             # 🚂 Railway deployment config
+│   ├── 📄 render.yaml              # 🚀 Render deployment config
 │   ├── 📄 package.json             # 📦 Backend dependencies
 │   ├── 📄 package-lock.json        # 🔒 Dependency lock
 │   └── 📄 server.js               # 🚀 Server entry point
@@ -528,7 +535,7 @@ Guess the secret number (1-100) with the fewest attempts
 - [ ] CORS is configured correctly
 - [ ] No sensitive data in client-side code
 
-**Live Demo:** Coming Soon 🎮
+**Live Demo:** [https://guessmasterarena.vercel.app](https://guessmasterarena.vercel.app) 🎮
 
 <br>
 
