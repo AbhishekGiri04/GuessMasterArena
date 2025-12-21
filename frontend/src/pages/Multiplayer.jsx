@@ -70,16 +70,12 @@ const Multiplayer = () => {
 
     gameSocket.on('player-joined', (data) => {
       console.log('Player joined event:', data);
-      if (currentRoom && data.room.roomId === currentRoom.roomId) {
-        setCurrentRoom(data.room);
-      }
+      setCurrentRoom(data.room);
     });
 
     gameSocket.on('player-left', (data) => {
       console.log('Player left event:', data);
-      if (currentRoom && data.room.roomId === currentRoom.roomId) {
-        setCurrentRoom(data.room);
-      }
+      setCurrentRoom(data.room);
     });
 
     gameSocket.on('game-started', () => {
