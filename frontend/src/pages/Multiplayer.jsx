@@ -31,15 +31,29 @@ const Multiplayer = () => {
   useEffect(() => {
     const gameSocket = connectSocket();
 
+    gameSocket.on('connect', () => {
+      console.log('Socket connected!');
+      gameSocket.emit('get-public-rooms');
+    });
+
+    gameSocket.on('connect_error', (error) => {
+      console.error('Socket connection error:', error);
+    });
+
     gameSocket.on('public-rooms', (data) => {
+      console.log('Received rooms:', data.rooms);
       setRooms(data.rooms || []);
     });
 
+    gameSocket.on('room-list-updated', () => {
+      console.log('Room list updated, fetching...');
+      gameSocket.emit('get-public-rooms');
+    });
+
     gameSocket.on('room-created', (data) => {
+      console.log('Room created:', data.room);
       setCurrentRoom(data.room);
       setGameState('room');
-      // Refresh rooms list
-      gameSocket.emit('get-public-rooms');
     });
 
     gameSocket.on('joined-room', (data) => {
@@ -53,12 +67,9 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('player-joined', (data) => {
-      // Update current room when someone joins
       if (currentRoom && data.room.roomId === currentRoom.roomId) {
         setCurrentRoom(data.room);
       }
-      // Refresh rooms list
-      gameSocket.emit('get-public-rooms');
     });
 
     gameSocket.on('game-started', () => {
@@ -82,8 +93,10 @@ const Multiplayer = () => {
       setGameResult({ winner: 'Time Up!', targetNumber: data.targetNumber });
     });
 
-    // Request public rooms on mount
-    gameSocket.emit('get-public-rooms');
+    gameSocket.on('error', (data) => {
+      console.error('Socket error:', data.message);
+      alert(data.message);
+    });
 
     return () => {
       disconnectSocket();

@@ -52,7 +52,7 @@ const Footer = () => {
           <div className="footer-section">
             <h4 className="resources-title">Resources</h4>
             <ul>
-              <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">Source Code</a></li>
+              <li><a href="https://github.com/AbhishekGiri04/GuessMaster_Arena" target="_blank" rel="noopener noreferrer">Source Code</a></li>
               <li><a href="/guide">Game Guide</a></li>
               <li><a href="/support">Support</a></li>
             </ul>

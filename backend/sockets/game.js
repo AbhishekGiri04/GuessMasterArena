@@ -145,7 +145,13 @@ module.exports = (io) => {
         await room.save();
         socket.join(roomId);
         socket.emit('room-created', { room });
+        
+        // Broadcast to all clients that a new room is available
+        io.emit('room-list-updated');
+        
+        console.log(`Room created: ${roomId} by ${username}`);
       } catch (error) {
+        console.error('Create room error:', error);
         socket.emit('error', { message: error.message });
       }
     });
@@ -157,8 +163,10 @@ module.exports = (io) => {
           gameState: 'waiting' 
         }).select('roomId name players maxPlayers');
         
+        console.log(`Fetched ${rooms.length} public rooms`);
         socket.emit('public-rooms', { rooms });
       } catch (error) {
+        console.error('Get rooms error:', error);
         socket.emit('error', { message: error.message });
       }
     });
@@ -200,6 +208,7 @@ module.exports = (io) => {
       try {
         let room = await GameRoom.findOne({ roomId });
         if (!room) {
+          console.log(`Room not found: ${roomId}`);
           return socket.emit('error', { message: 'Room not found' });
         }
         
@@ -209,6 +218,7 @@ module.exports = (io) => {
           await room.save();
           socket.join(roomId);
           socket.emit('joined-as-spectator', { room });
+          console.log(`${username} joined as spectator in room ${roomId}`);
         } else {
           // Join as player
           room.players.push({ userId, username, score: 0, guesses: [] });
@@ -216,8 +226,14 @@ module.exports = (io) => {
           socket.join(roomId);
           socket.emit('joined-room', { room });
           socket.to(roomId).emit('player-joined', { username, room });
+          
+          // Broadcast room list update
+          io.emit('room-list-updated');
+          
+          console.log(`${username} joined room ${roomId}`);
         }
       } catch (error) {
+        console.error('Join room error:', error);
         socket.emit('error', { message: error.message });
       }
     });
