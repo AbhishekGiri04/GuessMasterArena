@@ -25,7 +25,7 @@ const gameRoomSchema = new mongoose.Schema({
   }],
   winner: String,
   roundStartTime: Date,
-  roundDuration: { type: Number, default: 60000 } // 60 seconds
+  roundDuration: { type: Number, default: 120000 } // 120 seconds (2 minutes)
 }, { timestamps: true });
 
 module.exports = mongoose.model('GameRoom', gameRoomSchema);

@@ -715,7 +715,7 @@ const Multiplayer = () => {
           <div className="mp-game-over">
             <div className="game-over-card">
               <div className="game-over-animation">
-                {gameResult.winner === 'Time Up!' ? (
+                {gameResult.winner === 'No Winner' ? (
                   <div className="timeout-animation">
                     <div className="timeout-icon">⏰</div>
                     <div className="timeout-rings">
