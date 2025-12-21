@@ -490,16 +490,20 @@ const Multiplayer = () => {
               </div>
 
               <div className="room-actions">
-                {currentRoom.players.length >= 2 ? (
-                  currentRoom.players[0].userId === user._id ? (
+                {currentRoom.players[0].userId === user._id ? (
+                  currentRoom.players.length >= 2 ? (
                     <button onClick={startGame} className="start-game-btn">
                       🚀 Start Game
                     </button>
                   ) : (
-                    <p className="waiting-text">Waiting for host to start the game...</p>
+                    <p className="waiting-text">Waiting for more players to join...</p>
                   )
                 ) : (
-                  <p className="waiting-text">Waiting for more players to join...</p>
+                  currentRoom.players.length >= 2 ? (
+                    <p className="waiting-text">Waiting for host to start the game...</p>
+                  ) : (
+                    <p className="waiting-text">Waiting for more players to join...</p>
+                  )
                 )}
                 <button onClick={() => {
                   setCurrentRoom(null);
