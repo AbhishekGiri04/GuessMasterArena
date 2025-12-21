@@ -68,7 +68,7 @@ const Register = () => {
       <div className="auth-container">
         <div className="auth-header">
           <div className="auth-logo">
-            <img src="https://png.pngtree.com/png-vector/20220118/ourmid/pngtree-sign-up-now-png-image_226038.png" alt="Signup Logo" className="auth-logo-img" />
+            <img src="https://static.vecteezy.com/system/resources/previews/005/073/071/non_2x/user-not-found-account-not-register-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg" alt="Signup Logo" className="auth-logo-img" />
           </div>
           <h1>Join the Arena</h1>
           <p>Create your account and start competing</p>
