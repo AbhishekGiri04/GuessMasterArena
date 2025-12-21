@@ -196,13 +196,24 @@ GuessMasterArena/
 
 ## 📸 Preview Images
 
-| 📍 Page / Feature            | 📸 Screenshot                                              |
-|:----------------------------|:-----------------------------------------------------------|
-| Home Page                   | ![Home Page](docs/Home_Page.png)                     |
-| Single Player (AI Challenge) | ![Single Player](docs/Singleplayer_Page.png)       |
-| Multiplayer Arena           | ![Multiplayer](docs/Multiplayer_Page.png)            |
-| Leaderboard Rankings        | ![Leaderboard](docs/Leaderboard_Page.png)            |
-| Profile Management          | ![Profile Page](docs/Profile_Page.png)               |
+<div align="center">
+
+### 🏠 Home Page
+![Home Page](docs/Home_Page.png)
+
+### 🤖 Single Player (AI Challenge)
+![Single Player](docs/Singleplayer_Page.png)
+
+### 👥 Multiplayer Arena
+![Multiplayer](docs/Multiplayer_Page.png)
+
+### 🏆 Leaderboard Rankings
+![Leaderboard](docs/Leaderboard_Page.png)
+
+### 👤 Profile Management
+![Profile Page](docs/Profile_Page.png)
+
+</div>
 
 <br>
 
