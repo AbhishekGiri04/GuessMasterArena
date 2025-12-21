@@ -57,11 +57,13 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('joined-room', (data) => {
+      console.log('Successfully joined room:', data.room);
       setCurrentRoom(data.room);
       setGameState('room');
     });
 
     gameSocket.on('joined-as-spectator', (data) => {
+      console.log('Joined as spectator:', data.room);
       setCurrentRoom(data.room);
       setGameState('spectator');
     });
@@ -104,7 +106,18 @@ const Multiplayer = () => {
   }, []);
 
   const createRoom = () => {
-    if (!roomForm.name.trim() || !socket) return;
+    if (!roomForm.name.trim()) {
+      alert('Please enter a room name');
+      return;
+    }
+    
+    if (!socket) {
+      console.error('Socket not connected!');
+      alert('Connection error. Please refresh the page.');
+      return;
+    }
+    
+    console.log('Creating room:', roomForm.name);
     
     socket.emit('create-room', {
       name: roomForm.name,
@@ -131,7 +144,13 @@ const Multiplayer = () => {
   };
 
   const joinRoom = (roomId) => {
-    if (!socket) return;
+    if (!socket) {
+      console.error('Socket not connected!');
+      alert('Connection error. Please refresh the page.');
+      return;
+    }
+    
+    console.log('Joining room:', roomId, 'User:', user?.username);
     
     socket.emit('join-room', {
       roomId: roomId,
