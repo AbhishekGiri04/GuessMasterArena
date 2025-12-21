@@ -27,6 +27,9 @@ const Multiplayer = () => {
   const [guesses, setGuesses] = useState([]);
   const [gameResult, setGameResult] = useState(null);
   const [roomForm, setRoomForm] = useState({ name: '', password: '' });
+  const [timeLeft, setTimeLeft] = useState(120);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMsg, setNotificationMsg] = useState('');
 
   useEffect(() => {
     const gameSocket = connectSocket();
@@ -83,6 +86,18 @@ const Multiplayer = () => {
       setGameState(isSpectator ? 'spectating-game' : 'playing');
       setGuesses([]);
       setGameResult(null);
+      setTimeLeft(120);
+      
+      // Start timer
+      const timer = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     });
 
     gameSocket.on('guess-made', (data) => {
@@ -92,6 +107,12 @@ const Multiplayer = () => {
         console.log('Updated guesses:', updated);
         return updated;
       });
+    });
+
+    gameSocket.on('opponent-close', (data) => {
+      setNotificationMsg(`⚠️ ${data.username} is getting close!`);
+      setShowNotification(true);
+      setTimeout(() => setShowNotification(false), 3000);
     });
 
     gameSocket.on('game-over', (data) => {
@@ -583,7 +604,15 @@ const Multiplayer = () => {
 
         {gameState === 'playing' && (
         <div className="game-active">
+          {showNotification && (
+            <div className="opponent-notification">
+              {notificationMsg}
+            </div>
+          )}
           <div className="game-active-container-compact">
+            <div className="game-timer">
+              ⏱️ Time: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+            </div>
             <div className="game-header-compact">
               <h2>🎯 Guess the Number</h2>
               <p className="game-range">Between 1-100</p>
@@ -710,12 +739,12 @@ const Multiplayer = () => {
               </div>
               
               <h2 className="game-over-title">
-                {gameResult.winner === 'Time Up!' ? 'Time Up!' : '🎉 Game Over!'}
+                {gameResult.winner === 'No Winner' ? '⏰ Time Up!' : '🎉 Game Over!'}
               </h2>
               
               <div className="winner-section">
-                <div className="winner-label">Winner</div>
-                <div className="winner-name">{gameResult.winner}</div>
+                <div className="winner-label">{gameResult.winner === 'No Winner' ? 'Result' : 'Winner'}</div>
+                <div className="winner-name">{gameResult.winner === 'No Winner' ? 'No Winner - Time Expired' : gameResult.winner}</div>
               </div>
               
               <div className="secret-number-reveal">

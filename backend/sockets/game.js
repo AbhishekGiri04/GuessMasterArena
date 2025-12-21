@@ -194,7 +194,8 @@ module.exports = (io) => {
         await room.save();
         
         io.to(roomId).emit('game-started', { 
-          message: 'Game started! Guess the number between 1-100' 
+          message: 'Game started! Guess the number between 1-100',
+          duration: room.roundDuration
         });
         
         setTimeout(async () => {
@@ -202,7 +203,8 @@ module.exports = (io) => {
           if (updatedRoom && updatedRoom.gameState === 'playing') {
             updatedRoom.gameState = 'finished';
             await updatedRoom.save();
-            io.to(roomId).emit('game-timeout', { 
+            io.to(roomId).emit('game-over', { 
+              winner: 'No Winner',
               targetNumber: updatedRoom.currentNumber 
             });
           }
@@ -322,11 +324,26 @@ module.exports = (io) => {
           const hint = guess < room.currentNumber ? 'higher' : 'lower';
           await room.save();
           
+          console.log(`Emitting guess-made: ${player.username} guessed ${guess}, hint: ${hint}`);
           io.to(roomId).emit('guess-made', { 
             username: player.username, 
             guess, 
             hint 
           });
+          
+          // Check if opponent is close (within 10)
+          const distance = Math.abs(guess - room.currentNumber);
+          if (distance <= 10) {
+            // Notify other players
+            room.players.forEach(p => {
+              if (p.userId.toString() !== userId) {
+                io.to(roomId).emit('opponent-close', {
+                  username: player.username,
+                  distance
+                });
+              }
+            });
+          }
         }
       } catch (error) {
         socket.emit('error', { message: error.message });
