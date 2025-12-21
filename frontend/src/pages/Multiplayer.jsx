@@ -371,7 +371,7 @@ const Multiplayer = () => {
         </Link>
         <div className="mp-title">
           <h1>Multiplayer Arena</h1>
-          <p>Compete with Players Worldwide</p>
+          <p style={{marginTop: '0.8rem'}}>Compete with Players Worldwide</p>
         </div>
       </div>
 
@@ -606,13 +606,18 @@ const Multiplayer = () => {
                 {guesses.length === 0 ? (
                   <p className="no-guesses-compact">No guesses yet!</p>
                 ) : (
-                  guesses.slice(-8).reverse().map((g, i) => (
-                    <div key={i} className="guess-item-compact">
-                      <span className="guess-player-compact">{g.username}</span>
-                      <span className="guess-number-compact">{g.guess}</span>
-                      <span className={`guess-hint-compact hint-${g.hint}`}>{g.hint === 'higher' ? '⬆️' : '⬇️'} {g.hint}</span>
-                    </div>
-                  ))
+                  guesses.slice(-8).reverse().map((g, i) => {
+                    console.log('Rendering guess:', g);
+                    return (
+                      <div key={i} className="guess-item-compact">
+                        <span className="guess-player-compact">{g.username}</span>
+                        <span className="guess-number-compact">{g.guess}</span>
+                        <span className={`guess-hint-compact hint-${g.hint}`}>
+                          {g.hint === 'higher' ? '⬆️ Higher' : g.hint === 'lower' ? '⬇️ Lower' : g.hint === 'correct' ? '✅ Correct!' : g.hint}
+                        </span>
+                      </div>
+                    );
+                  })
                 )}
               </div>
             </div>
