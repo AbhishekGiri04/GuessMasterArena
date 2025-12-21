@@ -86,7 +86,12 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('guess-made', (data) => {
-      setGuesses(prev => [...prev, data]);
+      console.log('Guess received:', data);
+      setGuesses(prev => {
+        const updated = [...prev, data];
+        console.log('Updated guesses:', updated);
+        return updated;
+      });
     });
 
     gameSocket.on('game-over', (data) => {
@@ -375,7 +380,7 @@ const Multiplayer = () => {
         </div>
       </div>
 
-      <div className="mp-container">
+      <div className="mp-container" style={{paddingTop: '4rem'}}>
         {gameState === 'lobby' && (
           <div className="mp-lobby">
             <div className="mp-welcome-card">
