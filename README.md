@@ -442,7 +442,7 @@ Guess the secret number (1-100) with the fewest attempts
 2. Create a free cluster
 3. Create a database user
 4. Whitelist IP: `0.0.0.0/0` (allow all IPs)
-5. Get connection string: `mongodb+srv://username:password@cluster.mongodb.net/guessmaster`
+5. Get connection string from MongoDB Atlas dashboard
 
 ### 🔧 Step 2: Deploy Backend on Render
 
@@ -459,7 +459,7 @@ Guess the secret number (1-100) with the fewest attempts
 5. Add Environment Variables:
    ```
    PORT=10000
-   MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/guessmaster
+   MONGO_URI=your-mongodb-atlas-connection-string
    JWT_SECRET=your-super-secret-jwt-key-minimum-32-characters
    CLIENT_URL=https://your-frontend-app.vercel.app
    NODE_ENV=production
