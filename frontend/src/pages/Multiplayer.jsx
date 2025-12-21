@@ -69,6 +69,14 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('player-joined', (data) => {
+      console.log('Player joined event:', data);
+      if (currentRoom && data.room.roomId === currentRoom.roomId) {
+        setCurrentRoom(data.room);
+      }
+    });
+
+    gameSocket.on('player-left', (data) => {
+      console.log('Player left event:', data);
       if (currentRoom && data.room.roomId === currentRoom.roomId) {
         setCurrentRoom(data.room);
       }
@@ -506,6 +514,12 @@ const Multiplayer = () => {
                   )
                 )}
                 <button onClick={() => {
+                  if (socket && currentRoom) {
+                    socket.emit('leave-room', { 
+                      roomId: currentRoom.roomId, 
+                      userId: user._id 
+                    });
+                  }
                   setCurrentRoom(null);
                   setGameState('lobby');
                   socket?.emit('get-public-rooms');

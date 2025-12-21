@@ -236,7 +236,7 @@ module.exports = (io) => {
           await room.save();
           socket.join(roomId);
           socket.emit('joined-room', { room });
-          socket.to(roomId).emit('player-joined', { username, room });
+          io.to(roomId).emit('player-joined', { username, room });
           
           // Broadcast room list update
           io.emit('room-list-updated');
@@ -246,6 +246,34 @@ module.exports = (io) => {
       } catch (error) {
         console.error('Join room error:', error);
         socket.emit('error', { message: error.message });
+      }
+    });
+
+    socket.on('leave-room', async (data) => {
+      const { roomId, userId } = data;
+      
+      try {
+        let room = await GameRoom.findOne({ roomId });
+        if (!room) return;
+        
+        // Remove player from room
+        room.players = room.players.filter(p => p.userId.toString() !== userId);
+        
+        // If no players left, delete room
+        if (room.players.length === 0) {
+          await GameRoom.deleteOne({ roomId });
+          io.emit('room-list-updated');
+          console.log(`Room ${roomId} deleted - no players left`);
+        } else {
+          await room.save();
+          io.to(roomId).emit('player-left', { room });
+          io.emit('room-list-updated');
+          console.log(`Player left room ${roomId}, ${room.players.length} players remaining`);
+        }
+        
+        socket.leave(roomId);
+      } catch (error) {
+        console.error('Leave room error:', error);
       }
     });
 
