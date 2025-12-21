@@ -135,7 +135,7 @@ const Multiplayer = () => {
       isPrivate: !!roomForm.password,
       password: roomForm.password,
       maxPlayers: 4,
-      userId: user?.email || Date.now().toString(),
+      userId: user?._id || user?.email || Date.now().toString(),
       username: user?.username || 'Player'
     });
     
@@ -165,7 +165,7 @@ const Multiplayer = () => {
     
     socket.emit('join-room', {
       roomId: roomId,
-      userId: user?.email || Date.now().toString(),
+      userId: user?._id || user?.email || Date.now().toString(),
       username: user?.username || 'Player'
     });
     
