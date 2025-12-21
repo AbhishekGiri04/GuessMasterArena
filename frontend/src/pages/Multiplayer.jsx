@@ -135,7 +135,7 @@ const Multiplayer = () => {
       isPrivate: !!roomForm.password,
       password: roomForm.password,
       maxPlayers: 4,
-      userId: user?._id,
+      userId: user?._id || user?.email,
       username: user?.username || 'Player'
     });
     
@@ -165,7 +165,7 @@ const Multiplayer = () => {
     
     socket.emit('join-room', {
       roomId: roomId,
-      userId: user?._id,
+      userId: user?._id || user?.email,
       username: user?.username || 'Player'
     });
     
@@ -494,15 +494,15 @@ const Multiplayer = () => {
               </div>
 
               <div className="room-actions">
-                {currentRoom.players[0].userId === user._id && currentRoom.players.length >= 2 && (
+                {String(currentRoom.players[0].userId) === String(user?._id || user?.email) && currentRoom.players.length >= 2 && (
                   <button onClick={startGame} className="start-game-btn">
                     🚀 Start Game
                   </button>
                 )}
-                {currentRoom.players[0].userId === user._id && currentRoom.players.length < 2 && (
+                {String(currentRoom.players[0].userId) === String(user?._id || user?.email) && currentRoom.players.length < 2 && (
                   <p className="waiting-text">Waiting for more players to join...</p>
                 )}
-                {currentRoom.players[0].userId !== user._id && (
+                {String(currentRoom.players[0].userId) !== String(user?._id || user?.email) && (
                   <p className="waiting-text">
                     {currentRoom.players.length >= 2 ? 'Waiting for host to start the game...' : 'Waiting for more players to join...'}
                   </p>
