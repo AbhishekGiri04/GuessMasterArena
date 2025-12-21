@@ -494,7 +494,7 @@ const Multiplayer = () => {
               </div>
 
               <div className="room-actions">
-                {currentRoom.players[0].userId === user._id ? (
+                {currentRoom.players[0].userId.toString() === user._id.toString() ? (
                   currentRoom.players.length >= 2 ? (
                     <button onClick={startGame} className="start-game-btn">
                       🚀 Start Game
