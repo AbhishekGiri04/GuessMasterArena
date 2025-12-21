@@ -32,12 +32,14 @@ const Multiplayer = () => {
     const gameSocket = connectSocket();
 
     gameSocket.on('public-rooms', (data) => {
-      setRooms(data.rooms);
+      setRooms(data.rooms || []);
     });
 
     gameSocket.on('room-created', (data) => {
       setCurrentRoom(data.room);
       setGameState('room');
+      // Refresh rooms list
+      gameSocket.emit('get-public-rooms');
     });
 
     gameSocket.on('joined-room', (data) => {
@@ -50,8 +52,16 @@ const Multiplayer = () => {
       setGameState('spectator');
     });
 
+    gameSocket.on('player-joined', (data) => {
+      // Update current room when someone joins
+      if (currentRoom && data.room.roomId === currentRoom.roomId) {
+        setCurrentRoom(data.room);
+      }
+      // Refresh rooms list
+      gameSocket.emit('get-public-rooms');
+    });
+
     gameSocket.on('game-started', () => {
-      // Check if user is spectator or player
       const isSpectator = gameState === 'spectator';
       setGameState(isSpectator ? 'spectating-game' : 'playing');
       setGuesses([]);
@@ -72,8 +82,8 @@ const Multiplayer = () => {
       setGameResult({ winner: 'Time Up!', targetNumber: data.targetNumber });
     });
 
-    // Initialize empty rooms
-    setRooms([]);
+    // Request public rooms on mount
+    gameSocket.emit('get-public-rooms');
 
     return () => {
       disconnectSocket();
@@ -81,23 +91,19 @@ const Multiplayer = () => {
   }, []);
 
   const createRoom = () => {
-    if (!roomForm.name.trim()) return;
+    if (!roomForm.name.trim() || !socket) return;
     
-    const newRoom = {
-      roomId: Date.now().toString(36).toUpperCase() + Math.random().toString(36).substr(2, 4).toUpperCase(),
+    socket.emit('create-room', {
       name: roomForm.name,
+      isPrivate: !!roomForm.password,
       password: roomForm.password,
-      players: [{ username: user?.username || 'Player', userId: user?.email || Date.now().toString() }],
       maxPlayers: 4,
-      isPrivate: !!roomForm.password
-    };
+      userId: user?.email || Date.now().toString(),
+      username: user?.username || 'Player'
+    });
     
-    setRooms([...rooms, newRoom]);
-    setCurrentRoom(newRoom);
-    setGameState('room');
     setRoomForm({ name: '', password: '' });
     
-    // Add activity for creating room
     if (user) {
       const activities = JSON.parse(localStorage.getItem('userActivities') || '[]');
       const newActivity = {
@@ -112,31 +118,25 @@ const Multiplayer = () => {
   };
 
   const joinRoom = (roomId) => {
-    // Demo room joining
-    const room = rooms.find(r => r.roomId === roomId);
-    if (room && room.players.length < room.maxPlayers) {
-      const updatedRoom = {
-        ...room,
-        players: [...room.players, { username: user?.username || 'Player', userId: user?.email || Date.now().toString() }]
+    if (!socket) return;
+    
+    socket.emit('join-room', {
+      roomId: roomId,
+      userId: user?.email || Date.now().toString(),
+      username: user?.username || 'Player'
+    });
+    
+    if (user) {
+      const activities = JSON.parse(localStorage.getItem('userActivities') || '[]');
+      const room = rooms.find(r => r.roomId === roomId);
+      const newActivity = {
+        type: 'Joined Room',
+        description: `Joined multiplayer room "${room?.name || 'Unknown'}"`,
+        timestamp: new Date().toISOString(),
+        icon: 'JOIN'
       };
-      setCurrentRoom(updatedRoom);
-      setGameState('room');
-      
-      // Update rooms list
-      setRooms(rooms.map(r => r.roomId === roomId ? updatedRoom : r));
-      
-      // Add activity for joining room
-      if (user) {
-        const activities = JSON.parse(localStorage.getItem('userActivities') || '[]');
-        const newActivity = {
-          type: 'Joined Room',
-          description: `Joined multiplayer room "${room.name}"`,
-          timestamp: new Date().toISOString(),
-          icon: 'JOIN'
-        };
-        activities.unshift(newActivity);
-        localStorage.setItem('userActivities', JSON.stringify(activities.slice(0, 10)));
-      }
+      activities.unshift(newActivity);
+      localStorage.setItem('userActivities', JSON.stringify(activities.slice(0, 10)));
     }
   };
 
@@ -347,7 +347,7 @@ const Multiplayer = () => {
                   Create Room
                 </button>
                 <button 
-                  onClick={() => setRooms([])} 
+                  onClick={() => socket?.emit('get-public-rooms')} 
                   className="mp-refresh-btn"
                 >
                   Refresh
@@ -458,12 +458,9 @@ const Multiplayer = () => {
                   <p className="waiting-text">Waiting for more players to join...</p>
                 )}
                 <button onClick={() => {
-                  // If room creator leaves, delete the room
-                  if (currentRoom.players[0].username === user?.username) {
-                    setRooms(rooms.filter(r => r.roomId !== currentRoom.roomId));
-                  }
                   setCurrentRoom(null);
                   setGameState('lobby');
+                  socket?.emit('get-public-rooms');
                 }} className="leave-room-btn">
                   ← Leave Room
                 </button>
