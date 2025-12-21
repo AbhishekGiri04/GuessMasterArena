@@ -483,7 +483,7 @@ const Multiplayer = () => {
               <div className="players-section">
                 <h3>Players in Room</h3>
                 <div className="players-grid">
-                  {currentRoom.players.map((player, i) => (
+                  {currentRoom && currentRoom.players && currentRoom.players.map((player, i) => (
                     <div key={i} className="player-card">
                       <div className="player-avatar">👤</div>
                       <span className="player-name">{player.username}</span>
@@ -494,7 +494,7 @@ const Multiplayer = () => {
               </div>
 
               <div className="room-actions">
-                {currentRoom.players[0].userId.toString() === user._id.toString() ? (
+                {currentRoom && currentRoom.players && currentRoom.players.length > 0 && currentRoom.players[0].userId.toString() === user._id.toString() ? (
                   currentRoom.players.length >= 2 ? (
                     <button onClick={startGame} className="start-game-btn">
                       🚀 Start Game
@@ -503,7 +503,7 @@ const Multiplayer = () => {
                     <p className="waiting-text">Waiting for more players to join...</p>
                   )
                 ) : (
-                  currentRoom.players.length >= 2 ? (
+                  currentRoom && currentRoom.players && currentRoom.players.length >= 2 ? (
                     <p className="waiting-text">Waiting for host to start the game...</p>
                   ) : (
                     <p className="waiting-text">Waiting for more players to join...</p>
