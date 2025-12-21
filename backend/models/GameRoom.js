@@ -13,17 +13,17 @@ const gameRoomSchema = new mongoose.Schema({
     default: 'waiting' 
   },
   players: [{
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: String, required: true },
     username: String,
     score: { type: Number, default: 0 },
     guesses: [Number],
     isReady: { type: Boolean, default: false }
   }],
   spectators: [{
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: String, required: true },
     username: String
   }],
-  winner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  winner: String,
   roundStartTime: Date,
   roundDuration: { type: Number, default: 60000 } // 60 seconds
 }, { timestamps: true });
