@@ -243,6 +243,7 @@ const SinglePlayer = () => {
             </div>
 
             <div className="sp-input-section">
+              <h3 className="guess-title">🎯 Guess the Number (1-100)</h3>
               <form onSubmit={makeGuess} className="sp-guess-form">
                 <div className="input-wrapper">
                   <input
@@ -251,7 +252,7 @@ const SinglePlayer = () => {
                     max="100"
                     value={guess}
                     onChange={(e) => setGuess(e.target.value)}
-                    placeholder="Your guess..."
+                    placeholder="Enter your guess..."
                     className="sp-guess-input"
                     autoFocus
                   />

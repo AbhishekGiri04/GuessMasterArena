@@ -554,31 +554,46 @@ const Multiplayer = () => {
 
         {gameState === 'playing' && (
         <div className="game-active">
-          <h3>Guess the number between 1-100</h3>
-          
-          <form onSubmit={makeGuess} className="guess-form">
-            <input
-              type="number"
-              min="1"
-              max="100"
-              value={guess}
-              onChange={(e) => setGuess(e.target.value)}
-              placeholder="Enter your guess"
-              className="guess-input"
-              autoFocus
-            />
-            <button type="submit" className="btn btn-primary">Guess</button>
-          </form>
-
-          <div className="guesses-feed">
-            <h4>Recent Guesses</h4>
-            {guesses.slice(-10).map((g, i) => (
-              <div key={i} className="guess-item">
-                <strong>{g.username}:</strong> {g.guess} → {g.hint}
+          <div className="game-active-container">
+            <div className="game-header">
+              <h2>🎯 Guess the Number</h2>
+              <p className="game-range">Between 1-100</p>
+            </div>
+            
+            <form onSubmit={makeGuess} className="guess-form-center">
+              <div className="guess-input-wrapper">
+                <input
+                  type="number"
+                  min="1"
+                  max="100"
+                  value={guess}
+                  onChange={(e) => setGuess(e.target.value)}
+                  placeholder="Enter your guess"
+                  className="guess-input-modern"
+                  autoFocus
+                />
+                <button type="submit" className="guess-btn-modern">🚀 Guess</button>
               </div>
-            ))}
+            </form>
+
+            <div className="guesses-feed-modern">
+              <h3>📊 Recent Guesses</h3>
+              <div className="guesses-list">
+                {guesses.length === 0 ? (
+                  <p className="no-guesses">No guesses yet. Be the first!</p>
+                ) : (
+                  guesses.slice(-10).reverse().map((g, i) => (
+                    <div key={i} className="guess-item-modern">
+                      <span className="guess-player">{g.username}</span>
+                      <span className="guess-number">{g.guess}</span>
+                      <span className={`guess-hint hint-${g.hint}`}>→ {g.hint}</span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
           </div>
-          </div>
+        </div>
         )}
 
         {gameState === 'spectating-game' && (
@@ -634,20 +649,61 @@ const Multiplayer = () => {
         )}
 
         {gameState === 'finished' && gameResult && (
-        <div className="game-result">
-          <h2>Game Over!</h2>
-          <p className="winner">Winner: {gameResult.winner}</p>
-          <p>The number was: <strong>{gameResult.targetNumber}</strong></p>
-          <button 
-            onClick={() => {
-              setGameState('lobby');
-              setCurrentRoom(null);
-              socket?.emit('get-public-rooms');
-            }}
-            className="btn btn-primary"
-          >
-            Back to Lobby
-          </button>
+          <div className="mp-game-over">
+            <div className="game-over-card">
+              <div className="game-over-animation">
+                {gameResult.winner === 'Time Up!' ? (
+                  <div className="timeout-animation">
+                    <div className="timeout-icon">⏰</div>
+                    <div className="timeout-rings">
+                      <div className="timeout-ring"></div>
+                      <div className="timeout-ring"></div>
+                      <div className="timeout-ring"></div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="victory-animation">
+                    <div className="trophy-icon">🏆</div>
+                    <div className="confetti-burst">
+                      <div className="confetti"></div>
+                      <div className="confetti"></div>
+                      <div className="confetti"></div>
+                      <div className="confetti"></div>
+                      <div className="confetti"></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <h2 className="game-over-title">
+                {gameResult.winner === 'Time Up!' ? '⏰ Time Up!' : '🎉 Game Over!'}
+              </h2>
+              
+              <div className="winner-section">
+                <div className="winner-label">Winner</div>
+                <div className="winner-name">{gameResult.winner}</div>
+              </div>
+              
+              <div className="secret-number-reveal">
+                <span className="reveal-label">The Secret Number Was</span>
+                <div className="number-display">{gameResult.targetNumber}</div>
+              </div>
+              
+              <div className="game-over-actions">
+                <button 
+                  onClick={() => {
+                    setGameState('lobby');
+                    setCurrentRoom(null);
+                    setGameResult(null);
+                    socket?.emit('get-public-rooms');
+                  }}
+                  className="btn-back-lobby"
+                >
+                  <span className="btn-icon">🏠</span>
+                  <span className="btn-text">Back to Lobby</span>
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
