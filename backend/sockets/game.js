@@ -149,6 +149,17 @@ module.exports = (io) => {
         // Broadcast to all clients that a new room is available
         io.emit('room-list-updated');
         
+        // Auto-close room after 2 minutes if game hasn't started
+        setTimeout(async () => {
+          const checkRoom = await GameRoom.findOne({ roomId });
+          if (checkRoom && checkRoom.gameState === 'waiting') {
+            await GameRoom.deleteOne({ roomId });
+            io.to(roomId).emit('room-closed', { message: 'Room closed due to inactivity' });
+            io.emit('room-list-updated');
+            console.log(`Room ${roomId} auto-closed after 2 minutes`);
+          }
+        }, 120000); // 2 minutes
+        
         console.log(`Room created: ${roomId} by ${username}`);
       } catch (error) {
         console.error('Create room error:', error);

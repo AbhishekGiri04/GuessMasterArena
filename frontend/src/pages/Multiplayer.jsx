@@ -95,6 +95,13 @@ const Multiplayer = () => {
       setGameResult({ winner: 'Time Up!', targetNumber: data.targetNumber });
     });
 
+    gameSocket.on('room-closed', (data) => {
+      alert(data.message || 'Room has been closed');
+      setCurrentRoom(null);
+      setGameState('lobby');
+      gameSocket.emit('get-public-rooms');
+    });
+
     gameSocket.on('error', (data) => {
       console.error('Socket error:', data.message);
       alert(data.message);
@@ -476,6 +483,7 @@ const Multiplayer = () => {
                     <div key={i} className="player-card">
                       <div className="player-avatar">👤</div>
                       <span className="player-name">{player.username}</span>
+                      {i === 0 && <span className="host-badge">👑 Host</span>}
                     </div>
                   ))}
                 </div>
@@ -483,9 +491,13 @@ const Multiplayer = () => {
 
               <div className="room-actions">
                 {currentRoom.players.length >= 2 ? (
-                  <button onClick={startGame} className="start-game-btn">
-                    🚀 Start Game
-                  </button>
+                  currentRoom.players[0].userId === user._id ? (
+                    <button onClick={startGame} className="start-game-btn">
+                      🚀 Start Game
+                    </button>
+                  ) : (
+                    <p className="waiting-text">Waiting for host to start the game...</p>
+                  )
                 ) : (
                   <p className="waiting-text">Waiting for more players to join...</p>
                 )}
@@ -554,39 +566,39 @@ const Multiplayer = () => {
 
         {gameState === 'playing' && (
         <div className="game-active">
-          <div className="game-active-container">
-            <div className="game-header">
+          <div className="game-active-container-compact">
+            <div className="game-header-compact">
               <h2>🎯 Guess the Number</h2>
               <p className="game-range">Between 1-100</p>
             </div>
             
-            <form onSubmit={makeGuess} className="guess-form-center">
-              <div className="guess-input-wrapper">
+            <form onSubmit={makeGuess} className="guess-form-compact">
+              <div className="guess-input-wrapper-compact">
                 <input
                   type="number"
                   min="1"
                   max="100"
                   value={guess}
                   onChange={(e) => setGuess(e.target.value)}
-                  placeholder="Enter your guess"
-                  className="guess-input-modern"
+                  placeholder="Enter guess"
+                  className="guess-input-compact"
                   autoFocus
                 />
-                <button type="submit" className="guess-btn-modern">🚀 Guess</button>
+                <button type="submit" className="guess-btn-compact">🚀</button>
               </div>
             </form>
 
-            <div className="guesses-feed-modern">
-              <h3>📊 Recent Guesses</h3>
-              <div className="guesses-list">
+            <div className="guesses-feed-compact">
+              <h4>📊 Recent Guesses</h4>
+              <div className="guesses-list-compact">
                 {guesses.length === 0 ? (
-                  <p className="no-guesses">No guesses yet. Be the first!</p>
+                  <p className="no-guesses-compact">No guesses yet!</p>
                 ) : (
-                  guesses.slice(-10).reverse().map((g, i) => (
-                    <div key={i} className="guess-item-modern">
-                      <span className="guess-player">{g.username}</span>
-                      <span className="guess-number">{g.guess}</span>
-                      <span className={`guess-hint hint-${g.hint}`}>→ {g.hint}</span>
+                  guesses.slice(-8).reverse().map((g, i) => (
+                    <div key={i} className="guess-item-compact">
+                      <span className="guess-player-compact">{g.username}</span>
+                      <span className="guess-number-compact">{g.guess}</span>
+                      <span className={`guess-hint-compact hint-${g.hint}`}>{g.hint === 'higher' ? '⬆️' : '⬇️'} {g.hint}</span>
                     </div>
                   ))
                 )}
@@ -676,7 +688,7 @@ const Multiplayer = () => {
               </div>
               
               <h2 className="game-over-title">
-                {gameResult.winner === 'Time Up!' ? '⏰ Time Up!' : '🎉 Game Over!'}
+                {gameResult.winner === 'Time Up!' ? 'Time Up!' : '🎉 Game Over!'}
               </h2>
               
               <div className="winner-section">
@@ -699,7 +711,7 @@ const Multiplayer = () => {
                   }}
                   className="btn-back-lobby"
                 >
-                  <span className="btn-icon">🏠</span>
+                  <span className="btn-icon"></span>
                   <span className="btn-text">Back to Lobby</span>
                 </button>
               </div>
