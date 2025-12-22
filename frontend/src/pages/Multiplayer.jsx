@@ -102,11 +102,14 @@ const Multiplayer = () => {
 
     gameSocket.on('guess-made', (data) => {
       console.log('Guess received:', data);
-      setGuesses(prev => {
-        const updated = [...prev, data];
-        console.log('Updated guesses:', updated);
-        return updated;
-      });
+      // Only add to guesses if it's my own guess
+      if (data.username === user?.username) {
+        setGuesses(prev => {
+          const updated = [...prev, data];
+          console.log('Updated guesses:', updated);
+          return updated;
+        });
+      }
     });
 
     gameSocket.on('opponent-close', (data) => {
@@ -644,7 +647,7 @@ const Multiplayer = () => {
                 {guesses.length === 0 ? (
                   <p className="no-guesses-compact">No guesses yet!</p>
                 ) : (
-                  guesses.slice(-8).map((g, i) => {
+                  guesses.slice(-8).reverse().map((g, i) => {
                     console.log('Rendering guess:', g);
                     const isMyGuess = g.username === user?.username;
                     return (
@@ -746,7 +749,7 @@ const Multiplayer = () => {
               </div>
               
               <h2 className="game-over-title">
-                {gameResult.winner === 'No Winner' ? '⏰ Time Up!' : '🎉 Game Over!'}
+                {gameResult.winner === 'No Winner' ? 'Time Up!' : 'Game Over!'}
               </h2>
               
               <div className="winner-section">
