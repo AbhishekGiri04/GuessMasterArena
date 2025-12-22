@@ -231,13 +231,17 @@ const Multiplayer = () => {
   const makeGuess = (e) => {
     e.preventDefault();
     const guessNum = parseInt(guess);
-    if (guessNum >= 1 && guessNum <= 100 && socket && user) {
+    console.log('Making guess:', guessNum, 'Room:', currentRoom?.roomId, 'User:', user?._id);
+    if (guessNum >= 1 && guessNum <= 100 && socket && user && currentRoom) {
       socket.emit('multiplayer-guess', {
         roomId: currentRoom.roomId,
         guess: guessNum,
-        userId: user._id
+        userId: user._id || user.email
       });
+      console.log('Guess emitted to server');
       setGuess('');
+    } else {
+      console.log('Invalid guess or missing data:', { guessNum, socket: !!socket, user: !!user, room: !!currentRoom });
     }
   };
 
