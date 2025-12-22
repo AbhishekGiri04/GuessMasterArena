@@ -11130,8 +11130,8 @@ body.light-theme .profile-page {
 
 .guesses-list-compact {
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  flex-direction: column-reverse;
+  gap: 0;
   max-height: 250px;
   overflow-y: auto;
   padding-right: 0.5rem;
@@ -11172,6 +11172,18 @@ body.light-theme .profile-page {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+
+.guess-item-compact.my-guess {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(0, 255, 255, 0.08) 100%);
+  border-left-color: #00ff88;
+}
+
+.guess-item-compact.opponent-guess {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 140, 0, 0.05) 100%);
+  border-left-color: #ff6b35;
+  grid-template-columns: 1fr auto;
 }
 
 .guess-item-compact::before {
@@ -11277,4 +11289,19 @@ body.light-theme .profile-page {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+.guess-player-compact {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.my-guess .guess-player-compact {
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+}
+
+.opponent-guess .guess-player-compact {
+  color: #ff6b35;
+  text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
 }

@@ -110,9 +110,9 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('opponent-close', (data) => {
-      setNotificationMsg(`⚠️ ${data.username} is getting close!`);
+      setNotificationMsg(`⚠️ ${data.username} is ${data.distance} steps away from target!`);
       setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 3000);
+      setTimeout(() => setShowNotification(false), 4000);
     });
 
     gameSocket.on('game-over', (data) => {
@@ -644,15 +644,18 @@ const Multiplayer = () => {
                 {guesses.length === 0 ? (
                   <p className="no-guesses-compact">No guesses yet!</p>
                 ) : (
-                  guesses.slice(-8).reverse().map((g, i) => {
+                  guesses.slice(-8).map((g, i) => {
                     console.log('Rendering guess:', g);
+                    const isMyGuess = g.username === user?.username;
                     return (
-                      <div key={i} className="guess-item-compact">
-                        <span className="guess-player-compact">{g.username}</span>
+                      <div key={i} className={`guess-item-compact ${isMyGuess ? 'my-guess' : 'opponent-guess'}`}>
+                        <span className="guess-player-compact">{isMyGuess ? 'You' : g.username}</span>
                         <span className="guess-number-compact">{g.guess}</span>
-                        <span className={`guess-hint-compact hint-${g.hint}`}>
-                          {g.hint === 'higher' ? '⬆️ Higher' : g.hint === 'lower' ? '⬇️ Lower' : g.hint === 'correct' ? '✅ Correct!' : g.hint}
-                        </span>
+                        {isMyGuess && (
+                          <span className={`guess-hint-compact hint-${g.hint}`}>
+                            {g.hint === 'higher' ? '⬆️ Higher' : g.hint === 'lower' ? '⬇️ Lower' : g.hint === 'correct' ? '✅ Correct!' : g.hint}
+                          </span>
+                        )}
                       </div>
                     );
                   })
