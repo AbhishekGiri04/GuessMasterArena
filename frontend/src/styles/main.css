@@ -4821,10 +4821,10 @@ body.dark-theme {
     flex-direction: column;
   }
 }
-/* Professional Multiplayer UI */
+/* Multiplayer New Background */
 .multiplayer-new {
   min-height: 100vh;
-  background: url('https://www.bpmcdn.com/f/files/vernon/2024-july/240801-vms-game.jpg;w=960') center/cover no-repeat, linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+  background: url('https://png.pngtree.com/thumb_back/fh260/background/20230519/pngtree-collection-of-colorful-video-game-controllers-image_2573767.jpg') center/cover no-repeat, linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -4833,7 +4833,7 @@ body.dark-theme {
 }
 
 .multiplayer-new.light-theme {
-  background: url('https://img.freepik.com/free-psd/gaming-blank-banner-background_23-2150390427.jpg?semt=ais_hybrid&w=740&q=80') center/cover no-repeat, linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  background: url('https://png.pngtree.com/thumb_back/fh260/background/20230519/pngtree-collection-of-colorful-video-game-controllers-image_2573767.jpg') center/cover no-repeat, linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
