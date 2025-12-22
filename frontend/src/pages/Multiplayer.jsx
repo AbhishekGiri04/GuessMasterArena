@@ -108,9 +108,12 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('opponent-close', (data) => {
-      setNotificationMsg(`⚠️ ${data.username} is ${data.distance} steps away from target!`);
-      setShowNotification(true);
-      setTimeout(() => setShowNotification(false), 4000);
+      // Only show notification if it's NOT my guess
+      if (data.username !== user?.username) {
+        setNotificationMsg(`⚠️ ${data.username} is ${data.distance} steps away from target!`);
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 4000);
+      }
     });
 
     gameSocket.on('game-over', (data) => {
@@ -642,7 +645,7 @@ const Multiplayer = () => {
                 {guesses.length === 0 ? (
                   <p className="no-guesses-compact">No guesses yet!</p>
                 ) : (
-                  guesses.slice(-8).reverse().map((g, i) => (
+                  guesses.slice(-8).map((g, i) => (
                     <div key={i} className="guess-item-compact my-guess">
                       <span className="guess-player-compact">You</span>
                       <span className="guess-number-compact">{g.guess}</span>
