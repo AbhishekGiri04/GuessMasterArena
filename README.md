@@ -201,7 +201,7 @@ GuessMasterArena/
 ### 🏠 Home Page
 ![Home Page](docs/Home_Page.png)
 
-### 🤖 Single Player (AI Challenge)
+### 🧠 Single Player (AI Challenge)
 ![Single Player](docs/Singleplayer_Page.png)
 
 ### 👥 Multiplayer Arena

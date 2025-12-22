@@ -2,7 +2,10 @@
 
 .modern-guide-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 30%, #fdba74 70%, #fb923c 100%);
+  background: url('https://static-cse.canva.com/blob/1148437/YourbrandneedsavisualstyleguideHereshowtocreateone.png') center/cover no-repeat, linear-gradient(135deg, #fff7ed 0%, #fed7aa 30%, #fdba74 70%, #fb923c 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
   padding: 2rem 0;
 }
 
@@ -207,7 +210,10 @@
 
 .modern-support-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 30%, #bbf7d0 70%, #86efac 100%);
+  background: url('https://img.freepik.com/premium-photo/flat-lay-composition-with-word-support-computer-keyboard-wrench-grey-background-technical-service_495423-61061.jpg') center/cover no-repeat, linear-gradient(135deg, #f0fdf4 0%, #dcfce7 30%, #bbf7d0 70%, #86efac 100%);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
   padding: 2rem 0;
 }
 

@@ -6910,7 +6910,11 @@ body {
 }
 /* Arena Auth Container - Innovative Design */
 .arena-auth-container {
-  background: rgba(0, 0, 0, 0.85);
+  background: url('https://www.shutterstock.com/shutterstock/videos/3698883979/thumb/1.jpg?ip=x480') center/cover no-repeat, rgba(0, 0, 0, 0.85);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
   border-radius: 20px;
   padding: 3rem;
   max-width: 700px;
