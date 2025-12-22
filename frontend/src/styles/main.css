@@ -11535,10 +11535,7 @@ body.light-theme .profile-page {
   border: 1px solid rgba(255, 0, 255, 0.3);
 }
 
-.opponent-notification {
-  position: fixed;
-  top: 100px;
-  right: 20px;
+.opponent-notification-center {
   background: linear-gradient(135deg, rgba(255, 107, 53, 0.95) 0%, rgba(255, 0, 255, 0.9) 100%);
   color: #ffffff;
   padding: 1rem 1.5rem;
@@ -11547,27 +11544,19 @@ body.light-theme .profile-page {
   box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
   font-weight: 600;
   font-size: 1rem;
-  z-index: 1000;
-  animation: notificationSlide 0.5s ease, notificationPulse 2s ease-in-out infinite;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  animation: notificationFade 0.5s ease;
 }
 
-@keyframes notificationSlide {
+@keyframes notificationFade {
   from {
     opacity: 0;
-    transform: translateX(100px);
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes notificationPulse {
-  0%, 100% {
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
-  }
-  50% {
-    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6), 0 0 50px rgba(255, 0, 255, 0.4);
+    transform: translateY(0);
   }
 }
 
@@ -11590,10 +11579,7 @@ body.light-theme .profile-page {
     max-height: 250px;
   }
   
-  .opponent-notification {
-    top: 80px;
-    right: 10px;
-    left: 10px;
+  .opponent-notification-center {
     font-size: 0.9rem;
     padding: 0.8rem 1rem;
   }

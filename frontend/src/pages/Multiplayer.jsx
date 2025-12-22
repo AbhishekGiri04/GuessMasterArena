@@ -609,12 +609,12 @@ const Multiplayer = () => {
 
         {gameState === 'playing' && (
         <div className="game-active">
-          {showNotification && (
-            <div className="opponent-notification">
-              {notificationMsg}
-            </div>
-          )}
           <div className="game-active-container-compact">
+            {showNotification && (
+              <div className="opponent-notification-center">
+                {notificationMsg}
+              </div>
+            )}
             <div className="game-timer">
               Time: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
             </div>
