@@ -11305,3 +11305,296 @@ body.light-theme .profile-page {
   color: #ff6b35;
   text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
 }
+
+/* Multiplayer Game Active Compact Styles */
+.game-active-container-compact {
+  background: linear-gradient(145deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 4, 88, 0.9) 100%);
+  border-radius: 25px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto 3rem auto;
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+}
+
+.game-timer {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00ffff;
+  margin-bottom: 1.5rem;
+  padding: 0.8rem;
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 15px;
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.game-header-compact {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.game-header-compact h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.game-range {
+  color: #b0b0b0;
+  font-size: 1rem;
+}
+
+.guess-form-compact {
+  margin-bottom: 2rem;
+}
+
+.guess-input-wrapper-compact {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.guess-input-compact {
+  flex: 1;
+  max-width: 300px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.guess-input-compact:focus {
+  outline: none;
+  border-color: #00ffff;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.guess-btn-compact {
+  padding: 1rem 1.5rem;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, #00ffff, #0099ff);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+}
+
+.guess-btn-compact:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
+}
+
+.guesses-feed-compact {
+  margin-top: 2rem;
+}
+
+.guesses-feed-compact h4 {
+  color: #00ffff;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.guesses-list-compact {
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Custom Scrollbar */
+.guesses-list-compact::-webkit-scrollbar {
+  width: 8px;
+}
+
+.guesses-list-compact::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.guesses-list-compact::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ffff, #0099ff);
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.guesses-list-compact::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #33ffff, #00ccff);
+}
+
+.no-guesses-compact {
+  text-align: center;
+  color: #b0b0b0;
+  font-style: italic;
+  padding: 2rem;
+}
+
+.guess-item-compact {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.guess-item-compact.my-guess {
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.15) 0%, rgba(0, 153, 255, 0.1) 100%);
+  border-left: 4px solid #00ffff;
+}
+
+.guess-item-compact.opponent-guess {
+  background: linear-gradient(135deg, rgba(255, 0, 255, 0.15) 0%, rgba(255, 107, 53, 0.1) 100%);
+  border-left: 4px solid #ff00ff;
+}
+
+.guess-player-compact {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 0.9rem;
+  min-width: 80px;
+}
+
+.guess-number-compact {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #00ffff;
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 8px;
+  min-width: 50px;
+  text-align: center;
+}
+
+.guess-item-compact.opponent-guess .guess-number-compact {
+  color: #ff00ff;
+  background: rgba(255, 0, 255, 0.1);
+}
+
+.guess-hint-compact {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.guess-hint-compact.hint-higher {
+  background: rgba(255, 165, 0, 0.2);
+  color: #ffa500;
+  border: 1px solid rgba(255, 165, 0, 0.3);
+}
+
+.guess-hint-compact.hint-lower {
+  background: rgba(138, 43, 226, 0.2);
+  color: #8b5cf6;
+  border: 1px solid rgba(138, 43, 226, 0.3);
+}
+
+.guess-hint-compact.hint-correct {
+  background: rgba(0, 255, 136, 0.2);
+  color: #00ff88;
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.opponent-guess-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ff00ff;
+  padding: 0.3rem 0.8rem;
+  background: rgba(255, 0, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 0, 255, 0.3);
+}
+
+.opponent-notification {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.95) 0%, rgba(255, 0, 255, 0.9) 100%);
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 107, 53, 0.5);
+  box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 1000;
+  animation: notificationSlide 0.5s ease, notificationPulse 2s ease-in-out infinite;
+}
+
+@keyframes notificationSlide {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes notificationPulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+  }
+  50% {
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6), 0 0 50px rgba(255, 0, 255, 0.4);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .game-active-container-compact {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .guess-input-wrapper-compact {
+    flex-direction: column;
+  }
+  
+  .guess-input-compact {
+    max-width: 100%;
+  }
+  
+  .guesses-list-compact {
+    max-height: 250px;
+  }
+  
+  .opponent-notification {
+    top: 80px;
+    right: 10px;
+    left: 10px;
+    font-size: 0.9rem;
+    padding: 0.8rem 1rem;
+  }
+}

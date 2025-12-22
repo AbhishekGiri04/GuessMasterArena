@@ -101,14 +101,9 @@ const Multiplayer = () => {
     });
 
     gameSocket.on('guess-made', (data) => {
-      console.log('Guess received:', data);
-      // Only add to guesses if it's my own guess
+      // Only add my own guesses to the list
       if (data.username === user?.username) {
-        setGuesses(prev => {
-          const updated = [...prev, data];
-          console.log('Updated guesses:', updated);
-          return updated;
-        });
+        setGuesses(prev => [...prev, data]);
       }
     });
 
@@ -618,7 +613,7 @@ const Multiplayer = () => {
           )}
           <div className="game-active-container-compact">
             <div className="game-timer">
-              ⏱️ Time: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+              Time: {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
             </div>
             <div className="game-header-compact">
               <h2>🎯 Guess the Number</h2>
@@ -647,21 +642,15 @@ const Multiplayer = () => {
                 {guesses.length === 0 ? (
                   <p className="no-guesses-compact">No guesses yet!</p>
                 ) : (
-                  guesses.slice(-8).reverse().map((g, i) => {
-                    console.log('Rendering guess:', g);
-                    const isMyGuess = g.username === user?.username;
-                    return (
-                      <div key={i} className={`guess-item-compact ${isMyGuess ? 'my-guess' : 'opponent-guess'}`}>
-                        <span className="guess-player-compact">{isMyGuess ? 'You' : g.username}</span>
-                        <span className="guess-number-compact">{g.guess}</span>
-                        {isMyGuess && (
-                          <span className={`guess-hint-compact hint-${g.hint}`}>
-                            {g.hint === 'higher' ? '⬆️ Higher' : g.hint === 'lower' ? '⬇️ Lower' : g.hint === 'correct' ? '✅ Correct!' : g.hint}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })
+                  guesses.slice(-8).reverse().map((g, i) => (
+                    <div key={i} className="guess-item-compact my-guess">
+                      <span className="guess-player-compact">You</span>
+                      <span className="guess-number-compact">{g.guess}</span>
+                      <span className={`guess-hint-compact hint-${g.hint}`}>
+                        {g.hint === 'higher' ? '⬆️ Higher' : g.hint === 'lower' ? '⬇️ Lower' : g.hint === 'correct' ? '✅ Correct!' : g.hint}
+                      </span>
+                    </div>
+                  ))
                 )}
               </div>
             </div>
@@ -754,7 +743,7 @@ const Multiplayer = () => {
               
               <div className="winner-section">
                 <div className="winner-label">{gameResult.winner === 'No Winner' ? 'Result' : 'Winner'}</div>
-                <div className="winner-name">{gameResult.winner === 'No Winner' ? 'No Winner - Time Expired' : gameResult.winner}</div>
+                <div className="winner-name">{gameResult.winner}</div>
               </div>
               
               <div className="secret-number-reveal">
