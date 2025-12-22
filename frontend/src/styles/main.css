@@ -11311,9 +11311,9 @@ body.light-theme .profile-page {
   background: linear-gradient(145deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 4, 88, 0.9) 100%);
   border-radius: 25px;
   padding: 2rem;
-  max-width: 600px;
+  max-width: 900px;
   width: 100%;
-  margin: 0 auto 3rem auto;
+  margin: 0 auto 5rem auto;
   border: 2px solid rgba(0, 255, 255, 0.3);
   backdrop-filter: blur(20px);
   box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
