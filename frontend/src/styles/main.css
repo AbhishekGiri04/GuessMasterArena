@@ -959,15 +959,12 @@ body.dark-theme {
 }
 
 .game-active {
-  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px);
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 255, 255, 0.3);
-  border: 2px solid #00ffff;
-  max-width: 500px;
-  width: 100%;
-  backdrop-filter: blur(20px);
-  margin: 0 auto;
+  margin-bottom: 5rem;
 }
 
 .game-info h3 {
@@ -11308,15 +11305,19 @@ body.light-theme .profile-page {
 
 /* Multiplayer Game Active Compact Styles */
 .game-active-container-compact {
-  background: linear-gradient(145deg, rgba(0, 0, 0, 0.95) 0%, rgba(20, 4, 88, 0.9) 100%);
-  border-radius: 25px;
-  padding: 2rem;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(17, 24, 39, 0.9) 50%, rgba(30, 41, 59, 0.85) 100%);
+  border-radius: 30px;
+  padding: 3rem;
   max-width: 900px;
   width: 100%;
-  margin: 0 auto 5rem auto;
-  border: 2px solid rgba(0, 255, 255, 0.3);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+  margin: 0 auto;
+  border: 3px solid;
+  border-image: linear-gradient(45deg, #00d4ff, #ff0080, #00d4ff) 1;
+  backdrop-filter: blur(25px);
+  box-shadow: 
+    0 30px 80px rgba(0, 212, 255, 0.4),
+    0 0 100px rgba(255, 0, 128, 0.3),
+    inset 0 0 50px rgba(255, 255, 255, 0.05);
 }
 
 .game-timer {
