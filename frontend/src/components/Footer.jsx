@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -41,10 +42,10 @@ const Footer = () => {
           <div className="footer-section">
             <h4 className="game-modes-title">Game Modes</h4>
             <ul>
-              <li><a href="/single-player">AI Challenge</a></li>
-              <li><a href="/multiplayer">Multiplayer Arena</a></li>
-              <li><a href="/leaderboard">Leaderboard</a></li>
-              <li><a href="/profile">Player Profile</a></li>
+              <li><Link to="/single-player">AI Challenge</Link></li>
+              <li><Link to="/multiplayer">Multiplayer Arena</Link></li>
+              <li><Link to="/leaderboard">Leaderboard</Link></li>
+              <li><Link to="/profile">Player Profile</Link></li>
             </ul>
           </div>
 
@@ -53,8 +54,8 @@ const Footer = () => {
             <h4 className="resources-title">Resources</h4>
             <ul>
               <li><a href="https://github.com/AbhishekGiri04/GuessMaster_Arena" target="_blank" rel="noopener noreferrer">Source Code</a></li>
-              <li><a href="/guide">Game Guide</a></li>
-              <li><a href="/support">Support</a></li>
+              <li><Link to="/guide">Game Guide</Link></li>
+              <li><Link to="/support">Support</Link></li>
             </ul>
           </div>
 
@@ -87,11 +88,11 @@ const Footer = () => {
               <span>© 2025 GuessMaster Arena. All rights reserved.</span>
             </div>
             <div className="footer-links">
-              <a href="/privacy">Privacy Policy</a>
+              <Link to="/privacy">Privacy Policy</Link>
               <span className="separator">•</span>
-              <a href="/terms">Terms of Service</a>
+              <Link to="/terms">Terms of Service</Link>
               <span className="separator">•</span>
-              <a href="/rules">Game Rules</a>
+              <Link to="/rules">Game Rules</Link>
             </div>
             <div className="server-status">
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>

@@ -3379,7 +3379,7 @@ body.dark-theme {
 /* Professional Single Player UI */
 .single-player-new {
   min-height: 100vh;
-  background: url('https://png.pngtree.com/thumb_back/fh260/background/20250227/pngtree-next-gen-game-controller-with-neon-accents-image_17010244.jpg') center/cover no-repeat, linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+  background: url('https://www.blog.udonis.co/static/9c1686c2eecde5fe4bcb2b547ee26718/9fbff/ai-gaming-game-dev.webp') center/cover no-repeat, linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
