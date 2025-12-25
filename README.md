@@ -234,8 +234,8 @@ GuessMasterArena/
 
 ```bash
 # Clone repository
-git clone https://github.com/abhishekgiri04/GuessMaster-Arena.git
-cd GuessMaster-Arena
+git clone https://github.com/abhishekgiri04/GuessMasterArena.git
+cd GuessMasterArena
 
 # Install all dependencies
 npm run install-all
