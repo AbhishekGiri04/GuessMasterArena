@@ -188,6 +188,7 @@ GuessMasterArena/
 │   ├── 📄 Profile_Page.png        # 👤 Profile screenshot
 │   └── 📄 Singleplayer_Page.png   # 🤖 Single player screenshot
 ├── 📄 .gitignore                   # 🚫 Git ignore rules
+├── 📄 LICENSE                       # 📄 MIT License
 ├── 📄 package.json                 # 📦 Root dependencies
 ├── 📄 package-lock.json            # 🔒 Root dependency lock
 └── 📄 README.md                    # 📖 Project documentation
@@ -555,7 +556,7 @@ Guess the secret number (1-100) with the fewest attempts
 ## 📞 Help & Contact  
 
 > 💬 *Got questions or need assistance with GuessMaster Arena?*  
-> We're here to help with technical support and gaming guidance!
+> We're here to help with integration and customization!
 
 <div align="center">
 
@@ -571,6 +572,12 @@ Guess the secret number (1-100) with the fewest attempts
 </a>
 
 <br/>
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
