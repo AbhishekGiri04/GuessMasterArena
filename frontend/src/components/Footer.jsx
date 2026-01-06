@@ -85,7 +85,7 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <div className="copyright">
-              <span>© 2025 GuessMaster Arena. All rights reserved.</span>
+              <span>© 2026 GuessMaster Arena. All rights reserved.</span>
             </div>
             <div className="footer-links">
               <Link to="/privacy">Privacy Policy</Link>
